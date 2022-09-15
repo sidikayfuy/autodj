@@ -1,0 +1,32 @@
+{% extends 'autodj/home.html' %}
+{% load static%}
+
+{% block title %}
+    Туториалы
+{% endblock %}
+
+{% block content %}
+<div class="card-group container tutorials">
+    <div class="card col-xs-12 col-md-3 tutorial">
+        <iframe src="https://www.youtube.com/embed/pWahNIMRxR0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="card-body">
+        <h5 class="card-title">Урок № 1</h5>
+        </div>
+    </div>
+    <div class="card col-xs-12 col-md-3" >
+        <iframe src="https://www.youtube.com/embed/pWahNIMRxR0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="card-body">
+        <h5 class="card-title">Урок № 2</h5>
+        </div>
+    </div>
+    <div class="card col-xs-12 col-md-3">
+        <iframe src="https://www.youtube.com/embed/pWahNIMRxR0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="card-body">
+        <h5 class="card-title">Урок № 3</h5>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+    class="fixed-bottom"
+{% endblock %}

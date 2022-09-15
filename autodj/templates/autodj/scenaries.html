@@ -1,0 +1,130 @@
+{% extends 'autodj/home.html' %}
+{% load static%}
+
+{% block title %}
+    {{ scenari.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <!-- шапка -->
+        <div class="container">
+            <button type="button" onclick="location.href='{% url 'lk' %}'" class="btn btn-primary" id="back">
+                < Назад
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h1>{{ scenari.title }}</h1>
+
+                <button type="button" class="btn btn-primary" id="start">
+                    Запустить сценарий
+                </button>
+
+            </div>
+            <div class="col-8">
+                <audio autoplay="" controls="" src="" name="media" id="mainplayer"></audio>
+                <div>
+                    <button onclick="document.getElementById('mainplayer').play()">Воспроизведение</button>
+                    <button onclick="document.getElementById('mainplayer').pause()">Пауза</button>
+                    <button onclick="document.getElementById('mainplayer').volume+=0.1">Громкость +</button>
+                    <button onclick="document.getElementById('mainplayer').volume-=0.1">Громкость -</button>
+                </div>
+                <div class="recording">
+{#                    <button class="btn btn-primary stoprec" rec="false" id="recb">Включить микрофон</button>#}
+{#                    <button class="btn btn-primary stoprec" rec="false" id="stoprecb">Выключить</button>#}
+
+                    <input class="form-control textinput textInput" id="resultrec">
+
+
+{#                    <form>#}
+{#                        <button type="button" class="btn btn-primary" id="start_button" onclick="startButton(event)">#}
+{#                            Передача команды#}
+{#                        </button>#}
+{#                        {% csrf_token %}#}
+{#                        <button type="button" class="btn btn-primary" id="stoprec">#}
+{#                            Остановить передачу#}
+{#                        </button>#}
+{#                        <input id="message">#}
+{#                    </form>#}
+                    <section id="soundclips">
+
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- микрофон -->
+
+
+        <!-- триггеры -->
+        <div class="trigeri">
+            {% for trigger in triggers.all %}
+                <div class="row scencard">
+                    <div class="col-4 words">
+                        <h2>Слова триггеры:</h2>
+                        {% for word in trigger.words.all %}
+                            <p>{{ word }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="col-4 type">
+                        <h3>{{ trigger.type }}</h3>
+                    </div>
+                    <div class="col-4 file">
+                        <audio class="fc-media" style="width: 100%;">
+                            <source class="audiosrc" src="{{ trigger.file.first.file.url }}" type="audio/mp3">
+                        </audio>
+                        <p>{{ trigger.file.first.file.url }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+         <!-- комбо триггеры -->
+            {% for combs in combo %}
+                <div class="row scencard combo">
+                    <div class="col-4 words">
+                        <h2>Слова триггеры:</h2>
+                        {% for word in combs.parent.words.all %}
+                            <p>{{ word }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="col-4 type">
+                        <h3>{{ combs.parent.type }}</h3>
+                    </div>
+                    <div class="col-4 file">
+                        <audio class="fc-media" style="width: 100%;">
+                            <source class="audiosrc" src="{{ combs.parent.file.first.file.url }}" type="audio/mp3">
+                        </audio>
+                        <p>{{ combs.parent.file.first.file.url }}</p>
+                    </div>
+                    {% for child in combs.childrens.all %}
+                    <div class="childd">
+                    <div class="row">
+
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-4 words">
+                            <h2>Слова триггеры:</h2>
+                            {% for word in child.words.all %}
+                                <p>{{ word }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="col-3 type">
+                            <h3>{{ child.type }}</h3>
+                        </div>
+                        <div class="col-3 file">
+                            <audio class="fc-media" style="width: 100%;">
+                                <source class="audiosrc" src="{{ child.file.first.file.url }}" type="audio/mp3">
+                            </audio>
+                            <p>{{ child.file.first.file.url }}</p>
+                        </div>
+
+                    </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

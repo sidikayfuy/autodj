@@ -1,0 +1,109 @@
+{% extends 'autodj/home.html' %}
+{% load static%}
+
+{% block title %}
+    Личный кабинет
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="lk row profile-info justify-content-center">
+            <div class="col-2">
+                <img src="{% static 'images/avatar.svg'%}">
+            </div>
+
+            <div class="col-8 info">
+                <h2>{{ user }}</h2>
+                <p>Ведущий города Красноярск</p>
+            </div>
+
+        </div>
+
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addscenmodal" id="add_scen">
+                Добавить сценарий
+            </button>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#triggermodal" id="add_trigger">
+                Добавить триггеры
+            </button>
+
+
+            <div class="modal fade" id="addscenmodal" tabindex="-1" role="dialog" aria-labelledby="scen" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Добавить сценарий</h5>
+                        </div>
+
+                        <div class="modal-body">
+                            <label for="id_username" class="form-label control-label requiredField">Название</label>
+                            <div class="controls">
+                                <input type="text" autofocus="" autocapitalize="none" autocomplete="title" maxlength="150" class="form-control textinput textInput" required="" id="titlescen">
+                            </div>
+
+                            <label for="id_username" class="form-label control-label requiredField">Триггеры</label>
+                            <div class="controls">
+                                <select multiple="" class="form-select " id="selecttriggers">
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                            <button type="button" class="btn btn-primary" id="save_scen">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="triggermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавить триггер</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Слова или словосочетания (вводить через запятую)</label>
+                                <textarea class="form-control" id="wordsfortrigger" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Аудиофайл</label>
+                                <div>
+                                    <input type="file" class="form-control-file"  id="filefortrigger">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="close_modal">Закрыть</button>
+                            <button type="button" class="btn btn-primary" id="save-trigger">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenaries container">
+                {% for i in scenaries %}
+                    <div class="row" id="{{ i.id }}">
+                        <div class="col-10">
+                            <h1><a href="{% url 'scenaries' i.id %}">{{ i.title }}</a></h1>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary edit-scen">
+                                Редактировать
+                            </button>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="row scen-trig"></div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+    class="fixed-bottom"
+{% endblock %}

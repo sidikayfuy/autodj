@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href={% static 'css/bootstrap.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'css/main.css' %}>
+    <title>AutoDJ | {% block title %}Главная{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid ">
+        <a class="navbar-brand" href="../">AUTO DJ</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'lk' %}">Личный кабинет</a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tutorial' %}">Туториалы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'partners' %}">Партнеры</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                    {% else %}
+
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}
+    <div class="row intro">
+        <div class="introtext">
+            <h1>Auto DJ</h1>
+            <p>твой помошник в проведении мероприятия</p>
+        </div>
+    </div>
+
+    <div class="container elem">
+    <hr>
+        <p class="custom_p">Этот инструмент помогает заменить реальных DJ-ев набором автоматических функций для звукорежиссирования</p>
+    <hr>
+        <div class="row advantages">
+            <div class="col-sm">
+                <img src="{% static 'images/money_icon.png' %}">
+                <p class="custom_p">Экономия денег за счет использования подписки на этот инструмент</p>
+            </div>
+
+            <div class="col-sm">
+                <img src="{% static 'images/man_icon.png' %}">
+                <p class="custom_p">Нет необходимости в поиске DJ, вы сами себе DJ</p>
+            </div>
+
+            <div class="col-sm">
+                <img src="{% static 'images/easy_icon.png' %}">
+                <p class="custom_p">Простота использования, которая гарантирует успех вашего мероприятия</p>
+            </div>
+        </div>
+    <hr>
+        <div class="vspl">
+            <h1>Молодец, ты решил начать!</h1>
+        </div>
+        <button class="custom-button" onclick="window.location.href={% url 'register' %}"><p class="custom_p">Начни уже сейчас!</p></button>
+    </div>
+{% endblock %}
+<footer {% block footer %}{% endblock %}>
+    <div class="row ">
+        <div class="col-sm">
+
+        </div>
+
+        <div class="col-sm">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'lk' %}">Личный кабинет</a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tutorial' %}">Туториалы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'partners' %}">Партнеры</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm">
+
+        </div>
+    </div>
+</footer>
+</body>
+</html>
